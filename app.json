@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "joinmate2-mobile",
+    "slug": "joinmate2-mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "joinmate2-mobile"
+}

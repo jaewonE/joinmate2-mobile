@@ -1,0 +1,80 @@
+export const friendList = [
+  {
+    id: 1,
+    name: 'name1',
+    coverImg: '',
+    stateMessage: null,
+  },
+  {
+    id: 2,
+    name: 'name2',
+    coverImg: '',
+    stateMessage: 'Hello world2asadasdasdasdasdasdasdasdasdasdasdadasdasdasda',
+  },
+  {
+    id: 3,
+    name: 'name3',
+    coverImg: '../images/github_logo.png',
+    stateMessage: null,
+  },
+  {
+    id: 4,
+    name: 'name4',
+    coverImg: '../images/github_logo.png',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 5,
+    name: 'name4',
+    coverImg: '../images/github_logo.png',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 6,
+    name: 'name4',
+    coverImg: '../images/github_logo.png',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 7,
+    name: 'name4',
+    coverImg: '',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 8,
+    name: 'name4',
+    coverImg: '../images/github_logo.png',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 9,
+    name: 'name4',
+    coverImg: '',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 10,
+    name: 'name4',
+    coverImg: '',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 11,
+    name: 'name4',
+    coverImg: '../images/github_logo.png',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 12,
+    name: 'name4',
+    coverImg: '',
+    stateMessage: 'Hello world4',
+  },
+  {
+    id: 13,
+    name: 'name4',
+    coverImg: '../images/github_logo.png',
+    stateMessage: 'Hello world4',
+  },
+];

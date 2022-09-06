@@ -53,3 +53,13 @@ buck-out/
 .expo/
 web-build/
 dist/
+
+# env
+.env
+
+# google signin
+GoogleService-info.plist
+google-services.json
+Info.plist
+ios/joinmate2mobile/Info.plist
+IDEWorkspaceChecks.plist

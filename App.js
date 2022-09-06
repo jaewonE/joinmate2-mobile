@@ -1,21 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import RootRouter from './router/rootRouter';
+import OutRouter from './router/outRouter';
+import { useColorScheme } from 'react-native';
+import { darkMode, lightMode } from './props/theme';
+import { ThemeProvider } from 'styled-components/native';
+import auth from '@react-native-firebase/auth';
+import * as SplashScreen from 'expo-splash-screen';
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isDark = useColorScheme() === 'dark';
+
+  // useEffect(() => {
+  //   async function prepare() {
+  //     SplashScreen.preventAutoHideAsync();
+  //     auth().onAuthStateChanged((user) => {
+  //       console.log(user);
+  //       console.log('---------------------');
+  //       if (user) {
+  //         setIsLoggedIn(true);
+  //       } else {
+  //         setIsLoggedIn(false);
+  //       }
+  //     });
+  //     await SplashScreen.hideAsync();
+  //   }
+  //   prepare();
+  // }, []);
+
+  useEffect(() => {
+    auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={isDark ? darkMode : lightMode}>
+      <NavigationContainer>
+        {isLoggedIn ? <RootRouter /> : <OutRouter />}
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

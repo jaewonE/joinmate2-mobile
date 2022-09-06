@@ -3,9 +3,14 @@
     "name": "joinmate2-mobile",
     "slug": "joinmate2-mobile",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "android": {
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "plugins": ["@react-native-google-signin/google-signin"],
+    "assetBundlePatterns": ["**/*"]
   },
   "name": "joinmate2-mobile"
 }

@@ -26,6 +26,12 @@ target 'joinmate2mobile' do
     :app_path => "#{Dir.pwd}/.."
   )
 
+  pod 'GoogleSignIn', '~> 6.2'
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+
   # Uncomment to opt-in to using Flipper
   # Note that if you have use_frameworks! enabled, Flipper will not work
   #

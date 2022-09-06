@@ -1,0 +1,36 @@
+{
+  "googleSigninOutput": {
+    "displayName": "재원E",
+    "email": "importjaewone@gmail.com",
+    "emailVerified": true,
+    "isAnonymous": false,
+    "metadata": {
+      "creationTime": 1628847383522,
+      "lastSignInTime": 1662375104554
+    },
+    "phoneNumber": null,
+    "photoURL": "https://firebasestorage.googleapis.com/v0/b/joinmates-7701.appspot.com/o/profileImg%2FOpAPuoLnVkepWXPlaTfxEwNiEh52?alt=media&token=a2814fa9-ea44-4c9e-bf18-d7742c9b105f",
+    "providerData": ["[Object]"],
+    "providerId": "firebase",
+    "refreshToken": "asfasftye4HIgQza2-tbWXyCnZgbochhvpPqwQpUTcxYBi-Rxab-Vt1ptP3RUZtMkV5r-2G5wdPrJ7jreqArNaiJsoh0PKk-oloXkEE5V4uaxCbf7IgB7ujYvmUqT1JYEmgOeAhEvyiZK3qyZ5xukkyf1hV_4HL7sEb9cAy8Qtb3OS-kos2wm6WWhB79rK40deXvjnl_l_ikOXZbdgGcUrU9p0qpLI2Vidr3lXflsZvOcZD2y8Osp-tIpS_J67QNoHYwNhmWD-I39H24HL8CPc_cGip9WtKjZaAgfQElFKK58OD9huN_f3R3DSAOW2ackBrOitiInWEMHvF0PcDJmt6-8xUm7dC8PX-bNMu-wrYk2o65IH-yG_SeSG8YF5jyq7VOdl7PbtoTXicUHGfk",
+    "tenantId": null,
+    "uid": "OpAPuoasffxEwNiEh52"
+  },
+  "emailSigninOutput": {
+    "displayName": null,
+    "email": "aaqq@asd.com",
+    "emailVerified": false,
+    "isAnonymous": false,
+    "metadata": {
+      "creationTime": 1662375224568,
+      "lastSignInTime": 1662375224568
+    },
+    "phoneNumber": null,
+    "photoURL": null,
+    "providerData": [["Object"]],
+    "providerId": "firebase",
+    "refreshToken": "AOEOulZ4msQYMS3ssdgsdgsdxJ5AT8h9_2mWQ4GCAA7OOM6x6ostl8Iz-NlXORvX9GEq9XcW1NkgDgPns9AfCjPzuXjXgV9yC3_fCIrVKq5DRQm7oneF6NUBMATWMdWRK75KGom9Q0nUzQDxHZIfj3biHmgeVmPAZS8xL8TgBQ_R84vNkH-DQKDF7PbrQgKUZn8u",
+    "tenantId": null,
+    "uid": "FBL3J1eS6lOTvsdgsdgVGZrbpoh2"
+  }
+}

@@ -4,6 +4,8 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 const Container = styled.SafeAreaView`
   width: ${SCREEN_WIDTH}px;
   height: ${SCREEN_HEIGHT}px;
+  background-color: ${(props) =>
+    props.bgColor ? props.bgColor : props.theme.generalBgColor};
 `;
 
 const ContainerView = styled.View`
@@ -26,6 +28,7 @@ const TopBar = styled.View`
 const TopBarTitle = styled.Text`
   font-size: 16px;
   font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const IconView = styled.View`
@@ -34,8 +37,13 @@ const IconView = styled.View`
   right: 0px;
 `;
 
-export const SimpleTabWrapper = ({ children, title, icons }) => (
-  <Container>
+export const SimpleTabWrapper = ({
+  children,
+  title,
+  icons,
+  bgColor = null,
+}) => (
+  <Container bgColor={bgColor}>
     <ContainerView>
       <TopBar>
         <TopBarTitle>{title}</TopBarTitle>

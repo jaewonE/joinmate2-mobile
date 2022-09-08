@@ -31,6 +31,7 @@ const NameWrapper = styled.View`
 const NameText = styled.Text`
   font-size: 20px;
   font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const MemberLenText = styled.Text`
@@ -39,6 +40,7 @@ const MemberLenText = styled.Text`
   opacity: 0.4;
   margin-left: 5px;
   padding-bottom: 1px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const LastMessage = styled.View`
@@ -51,6 +53,7 @@ const StateText = styled.Text`
   font-size: 14px;
   font-weight: 300;
   opacity: 0.5;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ChatRoom = ({ chatRoom }) => (

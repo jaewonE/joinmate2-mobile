@@ -4,6 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 const Container = styled.SafeAreaView`
   width: ${SCREEN_WIDTH}px;
   height: ${SCREEN_HEIGHT}px;
+  background-color: ${(props) => props.theme.generalBgColor};
 `;
 
 const ContainerView = styled.View`
@@ -28,6 +29,7 @@ const TopBar = styled.View`
 const Title = styled.Text`
   font-size: 27px;
   font-weight: 700;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const TabWrapper = ({ children, title, icons, centerAlign = false }) => (

@@ -8,12 +8,14 @@ const Wrapper = styled.View`
   width: 100%;
   height: 60px;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(0, 0, 0, 0.3);
+  border-bottom-color: ${(props) =>
+    props.isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)'};
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 15px;
   margin-top: 5px;
+  opacity: ${(props) => (props.disable ? 0.3 : 1)};
 `;
 
 const TitleWrapper = styled.View`
@@ -28,14 +30,14 @@ const Title = styled.Text`
   font-size: ${(props) => (props.hasSubTitle ? 21 : 23)}px;
   font-weight: 400;
   padding-bottom: ${(props) => (props.hasSubTitle ? 5 : 15)}px;
-  color: ${(props) => (props.disable ? 'lightgray' : 'black')};
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const SubTitle = styled.Text`
   font-size: 14px;
   opacity: ${(props) => (props.disable ? 1 : 0.5)};
   padding-bottom: 5px;
-  color: ${(props) => (props.disable ? 'lightgray' : 'black')};
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ToogleWrapper = styled.View`
@@ -53,6 +55,7 @@ const SettingToggle = ({
   initialState = false,
   disable = false,
   disableMessage,
+  isDark,
 }) => {
   const [on, off] = useState(initialState);
   const [disAble, setDisAble] = useState(disable);
@@ -72,9 +75,13 @@ const SettingToggle = ({
   }, [disable]);
 
   return (
-    <Wrapper>
+    <Wrapper isDark={isDark} disable={disAble}>
       <TitleWrapper>
-        <Title disable={disAble} hasSubTitle={Boolean(subTitle)}>
+        <Title
+          isDark={isDark}
+          disable={disAble}
+          hasSubTitle={Boolean(subTitle)}
+        >
           {title}
         </Title>
         {subTitle && <SubTitle disable={disAble}>{subTitle}</SubTitle>}

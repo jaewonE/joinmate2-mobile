@@ -5,7 +5,7 @@ import SettingItem from '../components/settingItem';
 import { RED_COLOR } from '../props/colors';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { Alert } from 'react-native';
+import { Alert, useColorScheme } from 'react-native';
 import { FIREBASE_GOOGLE_CLIENT_ID } from '@env';
 
 const ScrollWrapper = styled.ScrollView`
@@ -34,6 +34,7 @@ const LogoutText = styled.Text`
 `;
 
 const Setting = ({ navigation: { navigate } }) => {
+  const isDark = useColorScheme() === 'dark';
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: FIREBASE_GOOGLE_CLIENT_ID,
@@ -65,6 +66,7 @@ const Setting = ({ navigation: { navigate } }) => {
     <TabWrapper title="Setting">
       <ScrollWrapper>
         <SettingItem
+          isDark={isDark}
           title="General"
           icon="ios-settings-outline"
           onPress={() =>
@@ -74,6 +76,7 @@ const Setting = ({ navigation: { navigate } }) => {
           }
         />
         <SettingItem
+          isDark={isDark}
           title="Profile"
           icon="person-outline"
           onPress={() =>

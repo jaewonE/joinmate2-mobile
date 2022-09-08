@@ -3,14 +3,23 @@ import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 import { friendList } from '../props/friendList';
-import { BLUE_COLOR, GREEN_COLOR } from '../props/colors';
+import {
+  ALL_BLACK_COLOR,
+  BLACK_COLOR,
+  BLUE_COLOR,
+  GRAY_COLOR,
+  GREEN_COLOR,
+  THICK_WHITE_COLOR,
+} from '../props/colors';
 import ProfileImg from '../components/profileImg';
-import { Animated } from 'react-native';
+import { Animated, useColorScheme } from 'react-native';
 
 const Container = styled.SafeAreaView`
   width: ${SCREEN_WIDTH}px;
   height: ${SCREEN_HEIGHT}px;
   flex: 1;
+  background-color: ${(props) =>
+    props.isDark ? ALL_BLACK_COLOR : THICK_WHITE_COLOR};
 `;
 
 const StatusWrapper = styled.View`
@@ -46,13 +55,15 @@ const TouchableStatusIcon = styled.TouchableOpacity`
 
 const StatusTitleWrapper = styled.Text`
   font-size: 18px;
-  font-weight: 600; ;
+  font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ChatListWrapper = styled.FlatList`
   width: 100%;
   flex: 1;
-  background-color: #ffd8bc; // #BCD8FF: kakao
+  background-color: ${(props) =>
+    props.isDark ? BLACK_COLOR : '#ffd8bc'}; // #BCD8FF: kakao
 `;
 const ChatWrapper = styled.View`
   width: 100%;
@@ -76,6 +87,7 @@ const ChatMessageName = styled.Text`
   font-size: 14px;
   font-weight: 400;
   padding-bottom: 5px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 const ChatMessageWrapper = styled.View`
   width: 100%;
@@ -102,6 +114,7 @@ const ChatMessageTime = styled.Text`
   opacity: 0.7;
   padding: 3px;
   padding-top: 0px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 const MessageGap = styled.View`
   height: 10px;
@@ -133,7 +146,8 @@ const TouchableOptionBtn = styled.TouchableOpacity`
 const TextInput = styled.TextInput`
   flex: 1;
   height: 100%;
-  background-color: white;
+  background-color: ${(props) => (props.isDark ? GRAY_COLOR : 'white')};
+  color: ${(props) => props.theme.generalTextColor};
   border-radius: 20px;
   padding-left: 10px;
   padding-right: 45px;
@@ -144,7 +158,15 @@ const SubmitWrapper = styled.TouchableOpacity`
   right: 16px;
   width: 28px;
   height: 30px;
+`;
+const SubmitWrapperBg = styled.View`
+  position: absolute;
+  top: 9px;
+  right: 5px;
+  width: 15px;
+  height: 17px;
   background-color: white;
+  z-index: -10;
 `;
 const AbsoluteOptionBtn = styled.TouchableOpacity`
   position: absolute;
@@ -177,6 +199,7 @@ const OptionName = styled.Text`
   margin-top: 7px;
   font-size: 13px;
   font-weight: 400;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const messageList = [
@@ -237,6 +260,8 @@ const Chat = ({ navigation: { goBack } }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [bottomTabHeight] = useState(new Animated.Value(50));
   const [animatedOp, setOp] = useState(new Animated.Value(1));
+  const isDark = useColorScheme() === 'dark';
+
   const toggleOptions = () => {
     if (showOptions) {
       Animated.timing(bottomTabHeight, {
@@ -301,16 +326,21 @@ const Chat = ({ navigation: { goBack } }) => {
   };
 
   return (
-    <Container>
+    <Container isDark={isDark}>
       <StatusWrapper>
         <StatusLeftIconWrapper>
           <TouchableStatusIcon onPress={goBack}>
-            <Ionicons name="ios-chevron-back" size={24} color="black" />
+            <Ionicons
+              name="ios-chevron-back"
+              size={24}
+              color={isDark ? 'white' : 'black'}
+            />
           </TouchableStatusIcon>
         </StatusLeftIconWrapper>
         <StatusTitleWrapper>JoinMate2</StatusTitleWrapper>
       </StatusWrapper>
       <ChatListWrapper
+        isDark={isDark}
         ref={flatlistRef}
         data={chatList}
         keyExtractor={(message) => message.messageId + ''}
@@ -348,10 +378,10 @@ const Chat = ({ navigation: { goBack } }) => {
           <InputInnerWrapper style={{ opacity: animatedOp }}>
             <AbsoluteOptionBtn onPress={toggleOptions}>
               <Ionicons
-                style={{ opacity: 0.4 }}
+                style={{ opacity: isDark ? 0.6 : 0.4 }}
                 name="ios-close"
                 size={30}
-                color="black"
+                color={isDark ? 'white' : 'black'}
               />
             </AbsoluteOptionBtn>
             <ScrollOptionWrapper
@@ -392,25 +422,26 @@ const Chat = ({ navigation: { goBack } }) => {
                 </OptionView>
                 <OptionName>VoiceTime</OptionName>
               </TouchableOptionWrapper>
-              <TouchableOptionWrapper>
+              {/* <TouchableOptionWrapper>
                 <OptionView bgColor={BLUE_COLOR}>
                   <Ionicons name="ios-images-outline" size={28} color="white" />
                 </OptionView>
                 <OptionName>Image</OptionName>
-              </TouchableOptionWrapper>
+              </TouchableOptionWrapper> */}
             </ScrollOptionWrapper>
           </InputInnerWrapper>
         ) : (
           <InputInnerWrapper style={{ opacity: animatedOp }}>
             <TouchableOptionBtn onPress={toggleOptions}>
               <Ionicons
-                style={{ opacity: 0.4 }}
+                style={{ opacity: isDark ? 0.6 : 0.4 }}
                 name="add"
                 size={30}
-                color="black"
+                color={isDark ? 'white' : 'black'}
               />
             </TouchableOptionBtn>
             <TextInput
+              isDark={isDark}
               value={input}
               ref={inputRef}
               onChangeText={(text) => setInput(text)}
@@ -418,6 +449,7 @@ const Chat = ({ navigation: { goBack } }) => {
             />
             <SubmitWrapper onPress={submitInput}>
               <Ionicons name="arrow-up-circle" size={32} color={GREEN_COLOR} />
+              <SubmitWrapperBg />
             </SubmitWrapper>
           </InputInnerWrapper>
         )}

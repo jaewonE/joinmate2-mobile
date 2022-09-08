@@ -2,26 +2,39 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { GREEN_COLOR, WHITE_COLOR } from '../props/colors';
 import { SimpleTabWrapper } from '../components/simpleTabWrapper';
-import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  TouchableOpacity,
+  useColorScheme,
+} from 'react-native';
 import { friendList } from '../props/friendList';
 
 const TopBarAddText = styled.Text`
   font-size: 16px;
   font-weight: 600;
-  opacity: 0.5; ;
+  opacity: 0.5;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const TextInput = styled.TextInput`
   width: 100%;
   border-bottom-width: 2px;
-  border-bottom-color: rgba(0, 0, 0, 0.5);
+  border-bottom-color: ${(props) =>
+    props.isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'};
   padding-bottom: 10px;
   font-size: 16px;
   font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const SearchBtn = styled.TouchableOpacity`
-  background-color: ${(props) => (props.vaildate ? GREEN_COLOR : 'lightgray')};
+  background-color: ${(props) =>
+    props.vaildate
+      ? GREEN_COLOR
+      : props.isDark
+      ? 'rgba(255, 255, 255, 0.5)'
+      : 'lightgray'};
   margin-top: 10px;
   width: 100%;
   height: 35px;
@@ -33,7 +46,7 @@ const SearchBtn = styled.TouchableOpacity`
 const SearchBtnText = styled.Text`
   font-size: 15px;
   font-weight: ${(props) => (props.vaildate ? 700 : 500)};
-  color: ${(props) => (props.vaildate ? WHITE_COLOR : 'black')};
+  color: ${(props) => (props.vaildate || props.isDark ? WHITE_COLOR : 'black')};
 `;
 
 const LoadingWrapper = styled.View`
@@ -56,6 +69,7 @@ const AddFriends = ({ navigation: { navigate, goBack } }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [isEmailValidate, setIsEmailValidate] = useState(false);
+  const isDark = useColorScheme() === 'dark';
 
   const searchFriend = () => {
     if (!isEmailValidate) {
@@ -89,6 +103,7 @@ const AddFriends = ({ navigation: { navigate, goBack } }) => {
       }
     >
       <TextInput
+        isDark={isDark}
         placeholder="Friends Email"
         onChangeText={(text) => ValidateEmail(text)}
         onSubmitEditing={searchFriend}
@@ -96,8 +111,14 @@ const AddFriends = ({ navigation: { navigate, goBack } }) => {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <SearchBtn vaildate={isEmailValidate} onPress={searchFriend}>
-        <SearchBtnText vaildate={isEmailValidate}>Search</SearchBtnText>
+      <SearchBtn
+        isDark={isDark}
+        vaildate={isEmailValidate}
+        onPress={searchFriend}
+      >
+        <SearchBtnText isDark={isDark} vaildate={isEmailValidate}>
+          Search
+        </SearchBtnText>
       </SearchBtn>
       {loading && (
         <LoadingWrapper>

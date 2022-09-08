@@ -28,6 +28,7 @@ const ProfileNameWrapper = styled.View`
 const ProfileNameText = styled.Text`
   font-size: 20px;
   font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ProfileStateWrapper = styled.View`
@@ -40,6 +41,7 @@ const ProfileStateText = styled.Text`
   font-size: 14px;
   font-weight: 300;
   opacity: 0.5;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ChildrenWrapper = styled.View`

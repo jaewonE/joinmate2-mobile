@@ -5,8 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { chatRoomList } from '../props/chatRoomList';
 import FriendProfile from '../components/friendProfile';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 import ChatRoom from '../components/chatRoom';
+import { ALL_BLACK_COLOR, WHITE_COLOR } from '../props/colors';
 
 const TopIconsWrapper = styled.View`
   flex-direction: row;
@@ -37,6 +38,7 @@ const FlatGap = styled.View`
 `;
 
 const ChatList = ({ navigation }) => {
+  const isDark = useColorScheme() === 'dark';
   const searchChat = () => {
     navigation.navigate('ScreensRouter', {
       screen: 'SearchFriend',
@@ -62,17 +64,17 @@ const ChatList = ({ navigation }) => {
           <TopIconBox onPress={searchChat}>
             <Ionicons
               style={{ opacity: 0.5 }}
-              name="ios-search-outline"
+              name={isDark ? 'ios-search' : 'ios-search-outline'}
               size={25}
-              color="black"
+              color={isDark ? WHITE_COLOR : ALL_BLACK_COLOR}
             />
           </TopIconBox>
           <TopIconBox onPress={newChat}>
             <MaterialCommunityIcons
               style={{ opacity: 0.4 }}
-              name="chat-plus-outline"
+              name={isDark ? 'chat-plus-outline' : 'chat-plus-outline'}
               size={26}
-              color="black"
+              color={isDark ? WHITE_COLOR : ALL_BLACK_COLOR}
             />
           </TopIconBox>
         </TopIconsWrapper>

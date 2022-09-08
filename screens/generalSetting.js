@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import TabWrapper from '../components/tabWrapper';
 import SettingToggle from '../components/settingToggle';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 
 const TopBarAddText = styled.Text`
   font-size: 16px;
   font-weight: 600;
   opacity: 0.5;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const TopGap = styled.View`
   height: 10px;
 `;
 
+const useSystemTheme = true;
+
 const GeneralSetting = ({ navigation: { goBack } }) => {
+  const isDark = useColorScheme() === 'dark';
   const [isSystemDarkMode, setIsSystemDarkMode] = useState(true);
 
   const systemDarkMode = (mode) => {
@@ -44,18 +48,22 @@ const GeneralSetting = ({ navigation: { goBack } }) => {
     >
       <TopGap />
       <SettingToggle
+        isDark={isDark}
         title="Use system Theme"
         subTitle="set app theme by system"
         callPressCallback={systemDarkMode}
         initialState={isSystemDarkMode}
       />
       <SettingToggle
+        isDark={isDark}
         title="Dark Mode"
         callPressCallback={toggleDarkMode}
         disable={isSystemDarkMode}
+        initialState={useSystemTheme && isDark}
         disableMessage="Can't set Dark mode whlie using system theme"
       />
       <SettingToggle
+        isDark={isDark}
         title="Auto scroll down"
         callPressCallback={toggleAutoScroll}
         disableMessage="Auto scroll down when new chat updated."

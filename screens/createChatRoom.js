@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { GREEN_COLOR, WHITE_COLOR } from '../props/colors';
+import {
+  ALL_BLACK_COLOR,
+  BLACK_COLOR,
+  GREEN_COLOR,
+  THICK_WHITE_COLOR,
+  WHITE_COLOR,
+} from '../props/colors';
 import { SimpleTabWrapper } from '../components/simpleTabWrapper';
-import { Alert, TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity, useColorScheme } from 'react-native';
 import { friendList } from '../props/friendList';
 import FadeInOut from 'react-native-fade-in-out';
 import CreateChatRoomItem from '../components/createChatRoomItem';
@@ -11,19 +17,27 @@ const TopBarAddText = styled.Text`
   font-size: 16px;
   font-weight: 600;
   opacity: 0.5;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const TextInput = styled.TextInput`
   width: 100%;
-  border-bottom-width: 2px;
-  border-bottom-color: rgba(0, 0, 0, 0.5);
+  border-bottom-width: 1px;
+  border-bottom-color: ${(props) =>
+    props.isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'};
   padding-bottom: 10px;
   font-size: 16px;
   font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const SearchBtn = styled.TouchableOpacity`
-  background-color: ${(props) => (props.hasName ? GREEN_COLOR : 'lightgray')};
+  background-color: ${(props) =>
+    props.hasName
+      ? GREEN_COLOR
+      : props.isDark
+      ? 'rgba(255, 255, 255, 0.5)'
+      : 'lightgray'};
   margin-top: 10px;
   width: 100%;
   height: 35px;
@@ -43,11 +57,12 @@ const RoomTitle = styled.Text`
   font-weight: 600;
   padding-left: 0px;
   padding-bottom: 20px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ResultWrapper = styled.View`
   width: 100%;
-  background-color: white;
+  background-color: ${(props) => (props.isDark ? BLACK_COLOR : 'white')};
   border-radius: 12px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -69,12 +84,14 @@ const ResultTitleWrapper = styled.View`
 const ResultTitle = styled.Text`
   font-size: 18px;
   font-weight: 500;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ResultCount = styled.Text`
   font-size: 17px;
   font-weight: 500;
   opacity: 0.4;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ChatList = styled.FlatList`
@@ -96,7 +113,12 @@ const SubmitWrapper = styled.TouchableOpacity`
 const SubmitBtn = styled.View`
   width: 100%;
   height: 40px;
-  background-color: ${GREEN_COLOR};
+  background-color: ${(props) =>
+    props.hasMembers
+      ? GREEN_COLOR
+      : props.isDark
+      ? 'rgba(255, 255, 255, 0.5)'
+      : 'lightgray'};
   border-radius: 10px;
   justify-content: center;
   align-items: center;
@@ -113,6 +135,7 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
   const [hasSetName, setHasSetName] = useState(false);
   const [visible, setVisible] = useState(true);
   const [members, setMembers] = useState([]);
+  const isDark = useColorScheme() === 'dark';
 
   const toogleMemberCallback = (member, isChecked) => {
     if (isChecked)
@@ -151,6 +174,7 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
 
   return (
     <SimpleTabWrapper
+      bgColor={isDark ? ALL_BLACK_COLOR : THICK_WHITE_COLOR}
       title="Add new chatroom"
       icons={
         <TouchableOpacity onPress={goBack}>
@@ -161,7 +185,7 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
       {hasSetName ? (
         <FadeInOut style={{ flex: 1 }} visible={!visible} duration={400}>
           <RoomTitle>Room: {chatRoomName}</RoomTitle>
-          <ResultWrapper>
+          <ResultWrapper isDark={isDark}>
             <ResultTitleWrapper>
               <ResultTitle>Add Members</ResultTitle>
               <ResultCount>{members.length}</ResultCount>
@@ -174,6 +198,7 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
               renderItem={({ item }) => (
                 <CreateChatRoomItem
                   item={item}
+                  isDark={isDark}
                   onClickMember={onClickMember}
                   toogleMemberCallback={toogleMemberCallback}
                 />
@@ -181,7 +206,7 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
             />
           </ResultWrapper>
           <SubmitWrapper onPress={createChatRoom}>
-            <SubmitBtn>
+            <SubmitBtn isDark={isDark} hasMembers={members.length > 0}>
               <SubmitText>Create Chatroom</SubmitText>
             </SubmitBtn>
           </SubmitWrapper>
@@ -189,11 +214,16 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
       ) : (
         <FadeInOut visible={visible} duration={400}>
           <TextInput
+            isDark={isDark}
             placeholder="Enter chatroom name"
             onChangeText={(text) => setChatRoomName(text)}
             onSubmitEditing={() => setHasSetName(Boolean(chatRoomName))}
           />
-          <SearchBtn hasName={Boolean(chatRoomName)} onPress={goNext}>
+          <SearchBtn
+            isDark={isDark}
+            hasName={Boolean(chatRoomName)}
+            onPress={goNext}
+          >
             <SearchBtnText hasName={goNext}>Next</SearchBtnText>
           </SearchBtn>
         </FadeInOut>

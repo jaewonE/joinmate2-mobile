@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import { friendList } from '../props/friendList';
-import { View } from 'react-native';
+import { useColorScheme, View } from 'react-native';
+import { BLACK_COLOR } from '../props/colors';
 
 const ImgContainer = styled.View`
   width: 65px;
@@ -14,7 +15,7 @@ const ImgWrapper = styled.View`
   width: 100%;
   height: 100%;
   border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: ${(props) => props.theme.generalTextColor};
   border-radius: 18px;
   flex-wrap: wrap;
   justify-content: center;
@@ -39,9 +40,10 @@ const IconView = styled.View`
 `;
 
 const MultiProfileImg = ({ members }) => {
+  const isDark = useColorScheme() === 'isDark';
   return (
     <ImgContainer>
-      <ImgWrapper>
+      <ImgWrapper isDark={isDark}>
         {members.slice(0, 4).map((memberId, index) => (
           <View key={index}>
             {/* 임시로 friendList의 index에 대응해두었지만 후에 id에 따른 연산 추가 필요 */}

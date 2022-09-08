@@ -3,8 +3,9 @@ import styled from 'styled-components/native';
 import TabWrapper from '../components/tabWrapper';
 import { Ionicons } from '@expo/vector-icons';
 import FriendProfile from '../components/friendProfile';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 import { friendList } from '../props/friendList';
+import { ALL_BLACK_COLOR, WHITE_COLOR } from '../props/colors';
 
 const Container = styled.View`
   flex: 1;
@@ -36,13 +37,15 @@ const FriendsTitle = styled.Text`
   margin-left: 7px;
   margin-bottom: 6px;
   margin-top: 6px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const MyProfile = styled.View`
   margin-bottom: 10px;
   padding-bottom: 5px;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-bottom-color: ${(props) =>
+    props.isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.1)'};
 `;
 
 const FlatListWrapper = styled.View`
@@ -63,6 +66,7 @@ const FlatGap = styled.View`
 `;
 
 const Friends = ({ navigation }) => {
+  const isDark = useColorScheme() === 'dark';
   const searchFriends = () => {
     navigation.navigate('ScreensRouter', {
       screen: 'SearchFriend',
@@ -87,17 +91,17 @@ const Friends = ({ navigation }) => {
           <TopIconBox onPress={searchFriends}>
             <Ionicons
               style={{ opacity: 0.5 }}
-              name="ios-search-outline"
+              name={isDark ? 'ios-search' : 'ios-search-outline'}
               size={25}
-              color="black"
+              color={isDark ? WHITE_COLOR : ALL_BLACK_COLOR}
             />
           </TopIconBox>
           <TopIconBox onPress={AddFriends}>
             <Ionicons
               style={{ opacity: 0.5 }}
-              name="person-add-outline"
+              name={isDark ? 'person-add' : 'person-add-outline'}
               size={25}
-              color="black"
+              color={isDark ? WHITE_COLOR : ALL_BLACK_COLOR}
             />
           </TopIconBox>
         </TopIconsWrapper>
@@ -107,7 +111,7 @@ const Friends = ({ navigation }) => {
         <NonFlatList>
           <FriendsTitle>My profile</FriendsTitle>
           <TouchableOpacity onPress={() => onClickFriend(friendList[0])}>
-            <MyProfile>
+            <MyProfile isDark={isDark}>
               <FriendProfile friend={friendList[0]} />
             </MyProfile>
           </TouchableOpacity>

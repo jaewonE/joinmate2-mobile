@@ -14,6 +14,7 @@ const TopBarAddText = styled.Text`
   font-size: 16px;
   font-weight: 600;
   opacity: 0.5;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const Container = styled.View`
@@ -26,15 +27,17 @@ const Container = styled.View`
 
 const ImageContainer = styled.View`
   width: 100%;
-  height: 80px;
+  height: 100px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
   border-width: 1px;
   border-color: ${(props) =>
-    props.isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0,0,0,0.3)'};
-  border-radius: 10px;
+    props.isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0,0,0,0.3)'};
+  border-radius: 20px;
   margin-bottom: 25px;
+  padding: 10px;
+  padding-right: 0px;
 `;
 const ImageWrapper = styled.View`
   width: 80px;
@@ -55,13 +58,15 @@ const ImageBtnWrapper = styled.View`
   justify-content: space-evenly;
   align-items: center;
 `;
-const ImageBtn = styled.TouchableOpacity`
-  height: 40%;
+const ImageBtn = styled.View`
+  margin-bottom: 5px;
+  margin-top: 5px;
+  height: 42%;
   width: 80%;
   border-radius: 10px;
   border-width: 1px;
   border-color: ${(props) =>
-    props.isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0,0,0,0.3)'};
+    props.isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0,0,0,0.3)'};
   justify-content: center;
   align-items: center;
   background-color: ${(props) => (props.deleteBtn ? RED_COLOR : 'transparent')};
@@ -69,7 +74,8 @@ const ImageBtn = styled.TouchableOpacity`
 const ImageBtnText = styled.Text`
   font-size: 14px;
   font-weight: 700;
-  color: ${(props) => (props.deleteBtn ? 'white' : 'black')};
+  color: ${(props) =>
+    props.deleteBtn ? 'white' : props.theme.generalTextColor};
 `;
 
 const EditProfile = ({ navigation: { goBack } }) => {
@@ -95,12 +101,12 @@ const EditProfile = ({ navigation: { goBack } }) => {
       }
     >
       <Container>
-        <ImageContainer>
+        <ImageContainer isDark={isDark}>
           <ImageWrapper>
             <Image source={require('../images/user_profile.jpeg')} />
           </ImageWrapper>
           <ImageBtnWrapper>
-            <ImageBtn>
+            <ImageBtn isDark={isDark}>
               <ImageBtnText>Change profile image</ImageBtnText>
             </ImageBtn>
             <ImageBtn deleteBtn={true}>
@@ -108,12 +114,12 @@ const EditProfile = ({ navigation: { goBack } }) => {
             </ImageBtn>
           </ImageBtnWrapper>
         </ImageContainer>
-        <ImageContainer>
+        <ImageContainer isDark={isDark}>
           <ImageWrapper>
             <Image source={require('../images/profile_background.jpeg')} />
           </ImageWrapper>
           <ImageBtnWrapper>
-            <ImageBtn>
+            <ImageBtn isDark={isDark}>
               <ImageBtnText>Change background image</ImageBtnText>
             </ImageBtn>
             <ImageBtn deleteBtn={true}>

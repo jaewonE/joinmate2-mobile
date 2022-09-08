@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, useColorScheme } from 'react-native';
 import ProfileImg from '../components/profileImg';
 import FriendProfile from '../components/friendProfile';
 import { friendList } from '../props/friendList';
+import {
+  THICK_WHITE_COLOR,
+  BLACK_COLOR,
+  WHITE_COLOR,
+  ALL_BLACK_COLOR,
+} from '../props/colors';
 
 const Container = styled.SafeAreaView`
   width: ${SCREEN_WIDTH}px;
   height: ${SCREEN_HEIGHT}px;
+  background-color: ${(props) =>
+    props.isDark ? ALL_BLACK_COLOR : THICK_WHITE_COLOR};
 `;
 
 const ContainerView = styled.View`
@@ -45,13 +53,16 @@ const TextInput = styled.TextInput`
   padding-left: 42px;
   padding-right: 20px;
   border-radius: 15px;
-  background-color: rgb(235, 235, 235);
+  background-color: ${(props) =>
+    props.isDark ? BLACK_COLOR : 'rgb(235, 235, 235)'};
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const GoBack = styled.Text`
   padding-left: 10px;
   font-size: 16px;
   font-weight: 600;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const ResultWrapper = styled.View`
@@ -60,6 +71,7 @@ const ResultWrapper = styled.View`
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 15px;
+  background-color: ${(props) => (props.isDark ? BLACK_COLOR : WHITE_COLOR)};
 `;
 
 const FriendsResultWrapper = styled(ResultWrapper)`
@@ -76,6 +88,7 @@ const ResultTitle = styled.Text`
   font-weight: 500;
   margin-bottom: 10px;
   padding-left: 5px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const FriendsList = styled.FlatList`
@@ -92,6 +105,7 @@ const FriendProfileName = styled.Text`
   font-size: 14px;
   margin-top: 3px;
   padding-left: 2px;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const WGap = styled.View`
@@ -118,12 +132,14 @@ const ResultNotFoundText = styled.Text`
   font-size: 17px;
   font-weight: 600;
   opacity: 0.3;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
 const SearchFriend = ({ navigation: { navigate, goBack } }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [friendResult, setFriendResult] = useState(friendList);
   const [chatResult, setChatResult] = useState(friendList);
+  const isDark = useColorScheme() === 'dark';
 
   const onNewTextInput = (text) => {
     setSearchTerm(text);
@@ -150,13 +166,18 @@ const SearchFriend = ({ navigation: { navigate, goBack } }) => {
   };
 
   return (
-    <Container>
+    <Container isDark={isDark}>
       <ContainerView>
         <TextInputWrapper>
           <SearchIconWrapper>
-            <Ionicons name="ios-search" size={20} color="black" />
+            <Ionicons
+              name="ios-search"
+              size={20}
+              color={isDark ? 'white' : 'black'}
+            />
           </SearchIconWrapper>
           <TextInput
+            isDark={isDark}
             onChangeText={(text) => onNewTextInput(text)}
             returnKeyType="search"
             onSubmitEditing={() => search()}
@@ -167,7 +188,7 @@ const SearchFriend = ({ navigation: { navigate, goBack } }) => {
           </TouchableOpacity>
         </TextInputWrapper>
         {friendResult.length > 0 && (
-          <FriendsResultWrapper>
+          <FriendsResultWrapper isDark={isDark}>
             <ResultTitle>Friends</ResultTitle>
             <FriendsList
               data={friendResult}
@@ -194,7 +215,7 @@ const SearchFriend = ({ navigation: { navigate, goBack } }) => {
           </FriendsResultWrapper>
         )}
         {chatResult.length > 0 && (
-          <ChatRoomResultWrapper>
+          <ChatRoomResultWrapper isDark={isDark}>
             <ResultTitle>ChatRoom</ResultTitle>
             <ChatList
               data={chatResult}

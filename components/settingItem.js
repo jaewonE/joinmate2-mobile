@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
+import { WHITE_COLOR, ALL_BLACK_COLOR } from '../props/colors';
 
 const ItemView = styled.View`
   width: 100%;
@@ -14,7 +15,8 @@ const ItemView = styled.View`
   align-items: center;
   position: relative;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
+  border-bottom-color: ${(props) =>
+    props.isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.2)'};
 `;
 
 const Title = styled.Text`
@@ -22,13 +24,19 @@ const Title = styled.Text`
   font-size: 24px;
   font-weight: 700;
   opacity: 0.7;
+  color: ${(props) => props.theme.generalTextColor};
 `;
 
-const SettingItem = ({ onPress, title, icon }) => {
+const SettingItem = ({ onPress, title, icon, isDark }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <ItemView>
-        <Ionicons style={{ opacity: 0.7 }} name={icon} size={35} />
+      <ItemView isDark={isDark}>
+        <Ionicons
+          style={{ opacity: 0.7 }}
+          name={icon}
+          size={35}
+          color={isDark ? WHITE_COLOR : ALL_BLACK_COLOR}
+        />
         <Title>{title}</Title>
       </ItemView>
     </TouchableOpacity>

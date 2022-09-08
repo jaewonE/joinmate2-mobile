@@ -71,6 +71,9 @@ const SignUp = () => {
     if (loading) {
       return;
     }
+    if (email.includes('@gmail.com')) {
+      return Alert.alert('Please use Google social login for gmail');
+    }
     setLoading(true);
     try {
       await auth().createUserWithEmailAndPassword(email, password);

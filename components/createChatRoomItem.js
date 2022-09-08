@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import FriendProfile from '../components/friendProfile';
 import { Ionicons } from '@expo/vector-icons';
-import { GREEN_COLOR, THICK_WHITE_COLOR } from '../props/colors';
+import { BLACK_COLOR, GREEN_COLOR, THICK_WHITE_COLOR } from '../props/colors';
 
 const TouchableMemberWrapper = styled.TouchableOpacity`
   padding-left: 15px;
   padding-right: 15px;
   background-color: ${(props) =>
-    props.isChecked ? THICK_WHITE_COLOR : 'white'};
+    props.isChecked
+      ? props.isDark
+        ? 'rgba(255, 255, 255, 0.3)'
+        : THICK_WHITE_COLOR
+      : props.isDark
+      ? BLACK_COLOR
+      : 'white'};
 `;
 
 const TouchableCheck = styled.TouchableOpacity`
@@ -26,7 +32,12 @@ const AddMemberWrapper = styled.View`
   opacity: ${(props) => (props.isChecked ? 1 : 0.3)};
 `;
 
-const CreateChatRoomItem = ({ item, toogleMemberCallback, onClickMember }) => {
+const CreateChatRoomItem = ({
+  item,
+  toogleMemberCallback,
+  onClickMember,
+  isDark,
+}) => {
   const [checked, setChecked] = useState(false);
   const onPressCheck = () => {
     toogleMemberCallback(item, checked);
@@ -34,6 +45,7 @@ const CreateChatRoomItem = ({ item, toogleMemberCallback, onClickMember }) => {
   };
   return (
     <TouchableMemberWrapper
+      isDark={isDark}
       isChecked={checked}
       onPress={() => onClickMember(item)}
     >

@@ -29,21 +29,22 @@ export default function App() {
   //   prepare();
   // }, []);
 
-  useEffect(() => {
-    auth().onAuthStateChanged((user) => {
-      console.log(user);
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth().onAuthStateChanged((user) => {
+  //     console.log(user);
+  //     if (user) {
+  //       setIsLoggedIn(true);
+  //     } else {
+  //       setIsLoggedIn(false);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <ThemeProvider theme={isDark ? darkMode : lightMode}>
       <NavigationContainer>
-        {isLoggedIn ? <RootRouter /> : <OutRouter />}
+        {/* {isLoggedIn ? <RootRouter /> : <OutRouter />} */}
+        <RootRouter />
       </NavigationContainer>
     </ThemeProvider>
   );

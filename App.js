@@ -12,22 +12,22 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const isDark = useColorScheme() === 'dark';
 
-  // useEffect(() => {
-  //   async function prepare() {
-  //     SplashScreen.preventAutoHideAsync();
-  //     auth().onAuthStateChanged((user) => {
-  //       console.log(user);
-  //       console.log('---------------------');
-  //       if (user) {
-  //         setIsLoggedIn(true);
-  //       } else {
-  //         setIsLoggedIn(false);
-  //       }
-  //     });
-  //     await SplashScreen.hideAsync();
-  //   }
-  //   prepare();
-  // }, []);
+  useEffect(() => {
+    async function prepare() {
+      SplashScreen.preventAutoHideAsync();
+      auth().onAuthStateChanged((user) => {
+        console.log(user);
+        console.log('---------------------');
+        if (user) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      });
+      await SplashScreen.hideAsync();
+    }
+    prepare();
+  }, []);
 
   // useEffect(() => {
   //   auth().onAuthStateChanged((user) => {
@@ -43,8 +43,7 @@ export default function App() {
   return (
     <ThemeProvider theme={isDark ? darkMode : lightMode}>
       <NavigationContainer>
-        {/* {isLoggedIn ? <RootRouter /> : <OutRouter />} */}
-        <RootRouter />
+        {isLoggedIn ? <RootRouter /> : <OutRouter />}
       </NavigationContainer>
     </ThemeProvider>
   );

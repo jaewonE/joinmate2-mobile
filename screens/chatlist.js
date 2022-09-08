@@ -72,7 +72,7 @@ const ChatList = ({ navigation }) => {
           <TopIconBox onPress={newChat}>
             <MaterialCommunityIcons
               style={{ opacity: 0.4 }}
-              name={isDark ? 'chat-plus-outline' : 'chat-plus-outline'}
+              name={isDark ? 'chat-plus' : 'chat-plus-outline'}
               size={26}
               color={isDark ? WHITE_COLOR : ALL_BLACK_COLOR}
             />

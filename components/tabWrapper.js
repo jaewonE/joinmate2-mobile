@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
+import { isIos, SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 
 const Container = styled.SafeAreaView`
   width: ${SCREEN_WIDTH}px;
@@ -10,7 +10,7 @@ const Container = styled.SafeAreaView`
 const ContainerView = styled.View`
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 5px;
+  padding-top: ${isIos ? 5 : 10}px;
   padding-bottom: 5px;
   justify-content: ${(props) => (props.centerAlign ? 'center' : 'flex-start')};
   align-items: ${(props) => (props.centerAlign ? 'center' : 'flex-start')};

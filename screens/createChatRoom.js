@@ -217,7 +217,7 @@ const CreateChatRoom = ({ navigation: { goBack, navigate } }) => {
             isDark={isDark}
             placeholder="Enter chatroom name"
             onChangeText={(text) => setChatRoomName(text)}
-            onSubmitEditing={() => setHasSetName(Boolean(chatRoomName))}
+            onSubmitEditing={goNext}
           />
           <SearchBtn
             isDark={isDark}

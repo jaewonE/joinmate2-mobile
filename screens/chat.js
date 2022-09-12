@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
+import { isIos, SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 import { friendList } from '../props/friendList';
 import {
   ALL_BLACK_COLOR,
@@ -18,6 +18,7 @@ const Container = styled.SafeAreaView`
   width: ${SCREEN_WIDTH}px;
   height: ${SCREEN_HEIGHT}px;
   flex: 1;
+  padding-top: ${isIos ? 0 : 10}px;
   background-color: ${(props) =>
     props.isDark ? ALL_BLACK_COLOR : THICK_WHITE_COLOR};
 `;

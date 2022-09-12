@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
+import { isIos, SCREEN_HEIGHT, SCREEN_WIDTH } from '../props/common';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity, useColorScheme } from 'react-native';
 import ProfileImg from '../components/profileImg';
@@ -18,6 +18,7 @@ const Container = styled.SafeAreaView`
   height: ${SCREEN_HEIGHT}px;
   background-color: ${(props) =>
     props.isDark ? ALL_BLACK_COLOR : THICK_WHITE_COLOR};
+  padding-top: ${isIos ? 0 : 10}px;
 `;
 
 const ContainerView = styled.View`
